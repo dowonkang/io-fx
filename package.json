@@ -1,0 +1,18 @@
+{
+  "name": "io-fx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "element/io-fx.js",
+  "scripts": {
+    "start": "serve ./element",
+    "format": "prettier --ignore-unknown --write ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-validate": "^7.18.0",
+    "prettier": "2.8.8",
+    "serve": "^14.2.0"
+  }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;io-fx&gt; element</title>
+    <style>
+      body {
+        overflow-x: hidden;
+      }
+
+      .wrapper {
+        overflow: hidden;
+      }
+
+      .dummy {
+        display: grid;
+        place-items: center;
+        min-height: var(--dummy-height, 100vh);
+        background: linear-gradient(to bottom right, #fed 0%, #def 100%);
+        font-weight: bold;
+        font-size: clamp(1rem, 8vw, 3rem);
+      }
+
+      .dummy:empty::after {
+        content: "DUMMY CONTENT";
+      }
+
+      .box {
+        margin: 0.5em;
+        padding: 1em;
+        border: 0.25em solid currentColor;
+        font-size: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>&lt;io-fx&gt; element</h1>
+      <div class="dummy"></div>
+      <script async defer src="./io-fx.js"></script>
+      <io-fx name="fade-up">
+        <div class="box">
+          <p>fade-up</p>
+        </div>
+      </io-fx>
+      <io-fx name="fade-left" delay="0.5s">
+        <div class="box">
+          <p>fade-left</p>
+        </div>
+      </io-fx>
+      <io-fx name="fade-right" duration="0.3s">
+        <div class="box">
+          <p>fade-right</p>
+        </div>
+      </io-fx>
+      <div class="dummy"></div>
+      <io-fx name="fade-left" thresholds="0.5">
+        <div class="box">
+          <p>fade-up threshold="0.5"</p>
+        </div>
+      </io-fx>
+    </div>
+  </body>
+</html>
