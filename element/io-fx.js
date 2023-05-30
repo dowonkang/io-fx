@@ -1,7 +1,6 @@
 (function () {
   const template = document.createElement("template");
-  template.innerHTML = `
-  <style>
+  template.innerHTML = `<style>
     :host {
       display: block;
     }
@@ -122,12 +121,12 @@
       --io-fx-translate-y-from: -100px;
     }
 
-    :host([name="zoom-in"]) {
-      --io-fx-scale-from: 1;
-      --io-fx-scale-to: 1.2;
+    :host([name^="zoom-in"]) {
+      --io-fx-scale-from: 0.8;
+      --io-fx-scale-to: 1;
     }
 
-    :host([name="zoom-out"]) {
+    :host([name^="zoom-out"]) {
       --io-fx-scale-from: 1.2;
       --io-fx-scale-to: 1;
     }
@@ -142,18 +141,14 @@
       --io-fx-filter-to: blur(10px);
     }
   </style>
-  <div class="io-fx-target"><slot></slot></div>
-`;
+  <div class="io-fx-target"><slot></slot></div>`;
 
   class IoFxElement extends HTMLElement {
-    /** @type {IntersectionObserver} */
-    observer;
-
-    /** @type {Map<string, IntersectionObserver>} */
-    static observers = new Map();
-
     constructor() {
       super();
+
+      /** @type {IntersectionObserver | null} */
+      this.observer = null;
 
       const shadowRoot = this.attachShadow({ mode: "open" });
       shadowRoot.appendChild(template.content.cloneNode(true));
@@ -289,6 +284,9 @@
       this.observer.unobserve(this);
     }
   }
+
+  /** @type {Map<string, IntersectionObserver>} */
+  IoFxElement.observers = new Map();
 
   if (!window.IoFxElement) {
     window.IoFxElement = IoFxElement;

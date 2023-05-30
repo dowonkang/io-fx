@@ -9,13 +9,6 @@
         overflow-x: hidden;
       }
 
-      pre {
-        background: #333;
-        color: white;
-        padding: 0.5em;
-        overflow: auto;
-      }
-
       .wrapper {
         overflow: hidden;
       }
@@ -34,10 +27,16 @@
       }
 
       .box {
+        display: grid;
+        place-items: center;
+        min-height: 25vh;
         margin: 0.5em;
         padding: 1em;
         border: 0.25em solid currentColor;
-        font-size: 2rem;
+      }
+
+      .box:has(pre) {
+        background: #f5f2f0;
       }
 
       .star {
@@ -45,42 +44,220 @@
         height: auto;
       }
 
-      io-fx[name="star"] .star {
-        opacity: 0;
-        transform: rotate(0deg) scale(1);
-        transition: opacity 1s linear, transform 1s ease-in-out;
+      io-fx {
+        margin: 2em 0;
       }
 
-      io-fx[name="star"][active] .star {
-        animation: star 5s infinite;
+      io-fx[name="rhcp"] {
+        width: 50vw;
+        height: 50vw;
+        margin-inline: auto;
+        color: rgb(255, 0, 0);
       }
 
-      @keyframes star {
-        0%,
+      io-fx[name="rhcp"] svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+      }
+
+      io-fx[name="rhcp"] g {
+        transform-origin: center;
+      }
+
+      io-fx[name="rhcp"] .plus {
+        transform: rotate(0deg);
+      }
+
+      io-fx[name="rhcp"] .x {
+        transform: rotate(45deg);
+      }
+
+      io-fx[name="rhcp"][active] {
+        animation: color-spectrum 10s linear infinite alternate-reverse;
+      }
+
+      io-fx[name="rhcp"][active] .plus {
+        animation: rotate-forwards 6s linear infinite;
+      }
+
+      io-fx[name="rhcp"][active] .x {
+        animation: rotate-backwards 4s linear infinite;
+      }
+
+      @keyframes color-spectrum {
+        0% {
+          color: rgb(0, 0, 0);
+        }
+        33% {
+          color: rgb(255, 0, 0);
+        }
+        66% {
+          color: rgb(255, 255, 0);
+        }
         100% {
-          transform: rotate(0deg) scale(1);
-          opacity: 0;
+          color: rgb(0, 255, 255);
+        }
+      }
+
+      @keyframes rotate-forwards {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes rotate-backwards {
+        0% {
+          transform: rotate(45deg);
+          filter: blur(0);
         }
         50% {
-          transform: rotate(180deg) scale(1.2);
-          opacity: 1;
+          filter: blur(3px);
+        }
+        100% {
+          transform: rotate(-45deg);
+          filter: blur(0);
         }
       }
     </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism.min.css"
+      integrity="sha512-/mZ1FHPkg6EKcxo0fKXF51ak6Cr2ocgDi5ytaTBjsQZIH/RNs6GF6+oId/vPe3eJB836T36nXwVh/WBl/cWT4w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"
+      integrity="sha512-UOoJElONeUNzQbbKQbjldDf9MwOHqxNz49NNJJ1d90yp+X9edsHyJoAs6O4K19CZGaIdjI5ohK+O2y5lBTW6uQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script async src="./io-fx.js"></script>
   </head>
   <body>
     <div class="wrapper">
       <h1>&lt;io-fx&gt; element</h1>
 
-      <p>HTML 예:</p>
+      <pre><code class="language-markup">&lt;script async crossorigin="anonymous" src="https://review.cttd.co.kr/io-fx/io-fx.js"&gt;&lt;/script&gt;</code></pre>
 
-      <pre><code>&lt;script async defer crossorigin="anonymous" src="https://review.cttd.co.kr/io-fx/io-fx.js"&gt;&lt;/script&gt;
-&lt;io-fx name="fx-name" filter="filter-name" duration="0.5s" delay="0.5s" thresholds="[0.5, 1.0]" easing="ease-in"&gt;
-  &lt;p&gt;content...&lt;/p&gt;
-&lt;/io-fx&gt;</code></pre>
+      <div class="dummy">Scroll &darr;</div>
+
+      <io-fx name="fade-up">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-up"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-down" duration="1s">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-down" duration="1s"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-right" once>
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-right" once&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-left" delay="0.5s">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-left" delay="0.5s"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-up-right" root-margin="-200px 0px -200px 0px">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-up-right" root-margin="-200px 0px -200px 0px"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-up-left" thresholds="0.0">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-up-left" thresholds="0.0"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-down-right">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-down-right"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="fade-down-left">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="fade-down-left"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="zoom-in">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="zoom-in"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="zoom-out">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="zoom-out"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="zoom-in-up">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="zoom-in-up"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="zoom-out-down">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="zoom-out-down"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx
+        name="zoom-in"
+        easing="cubic-bezier(0.36, 0, 0.66, -0.56)"
+        duration="3s"
+      >
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx
+  name="zoom-in"
+  easing="cubic-bezier(0.36, 0, 0.66, -0.56)"
+  duration="3s"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx name="zoom-in" filter="blur-in">
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx name="zoom-in" filter="blur-in"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <io-fx
+        name="zoom-out"
+        filter="blur-out"
+        root-margin="-200px 0px"
+        thresholds="1.0"
+      >
+        <div class="box">
+          <pre><code class="language-markup">&lt;io-fx
+  name="zoom-out"
+  filter="blur-out"
+  root-margin="-200px 0px -200px 0px"
+  thresholds="1.0"&gt;&lt;/io-fx&gt;</code></pre>
+        </div>
+      </io-fx>
+
+      <div class="dummy"></div>
 
       <p>CSS 예:</p>
-      <pre><code>/* CSS 변수로 효과 지정 */
+      <pre><code class="language-css">/* CSS 변수로 효과 지정 */
 io-fx[name="fx-name"] {
   --io-fx-scale-from: 1;
   --io-fx-scale-to: 2;
@@ -112,61 +289,40 @@ io-fx[name="blink"][active] .blink {
   }
 }</code></pre>
 
-      <div class="dummy"></div>
-
-      <script async defer crossorigin="anonymous" src="./io-fx.js"></script>
-
-      <io-fx name="fade-up">
-        <div class="box">
-          <p>fade-up</p>
-        </div>
-      </io-fx>
-
-      <io-fx name="fade-left" delay="0.5s">
-        <div class="box">
-          <p>fade-left</p>
-        </div>
-      </io-fx>
-
-      <io-fx name="fade-right" duration="0.3s">
-        <div class="box">
-          <p>fade-right</p>
-        </div>
-      </io-fx>
-
-      <div class="dummy"></div>
-
-      <io-fx name="fade-left" thresholds="0.5">
-        <div class="box">
-          <p>fade-up threshold="0.5"</p>
-        </div>
-      </io-fx>
-
-      <div class="dummy"></div>
-
-      <io-fx name="star">
-        <svg viewBox="0 0 1716.0066 818.61017" class="star">
-          <path
-            fill="#ffe400"
-            d="m838.18745 614.058-88.187-88.187-89.559 89.559-55.529-55.529 89.559-89.558-88.188-88.187997 52.437-52.436005 88.187 88.187002 89.908-89.908003 55.528 55.529005-89.908 89.907998 88.188 88.187z"
-          ></path>
-          <path
-            fill="#ffd200"
-            d="M913.07295 509.5h-124.716v126.657h-78.529V509.5h-124.716v-74.154h124.716V308.197h78.529v127.149h124.716z"
-          ></path>
-        </svg>
-      </io-fx>
-
-      <io-fx name="zoom-out" filter="blur-in">
-        <svg viewBox="0 0 1716.0066 818.61017" class="star">
-          <path
-            fill="#ffe400"
-            d="m838.18745 614.058-88.187-88.187-89.559 89.559-55.529-55.529 89.559-89.558-88.188-88.187997 52.437-52.436005 88.187 88.187002 89.908-89.908003 55.528 55.529005-89.908 89.907998 88.188 88.187z"
-          ></path>
-          <path
-            fill="#ffd200"
-            d="M913.07295 509.5h-124.716v126.657h-78.529V509.5h-124.716v-74.154h124.716V308.197h78.529v127.149h124.716z"
-          ></path>
+      <io-fx name="rhcp" thresholds="0.0">
+        <svg viewBox="0 0 100 100">
+          <g class="plus">
+            <rect
+              x="40"
+              y="0"
+              width="20"
+              height="100"
+              fill="currentColor"
+            ></rect>
+            <rect
+              x="0"
+              y="40"
+              width="100"
+              height="20"
+              fill="currentColor"
+            ></rect>
+          </g>
+          <g class="x" transform="rotate(45)" opacity="0.8">
+            <rect
+              x="40"
+              y="0"
+              width="20"
+              height="100"
+              fill="currentColor"
+            ></rect>
+            <rect
+              x="0"
+              y="40"
+              width="100"
+              height="20"
+              fill="currentColor"
+            ></rect>
+          </g>
         </svg>
       </io-fx>
 
