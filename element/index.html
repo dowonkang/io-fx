@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,6 +7,13 @@
     <style>
       body {
         overflow-x: hidden;
+      }
+
+      pre {
+        background: #333;
+        color: white;
+        padding: 0.5em;
+        overflow: auto;
       }
 
       .wrapper {
@@ -65,9 +72,49 @@
     <div class="wrapper">
       <h1>&lt;io-fx&gt; element</h1>
 
+      <p>HTML 예:</p>
+
+      <pre><code>&lt;script async defer crossorigin="anonymous" src="https://review.cttd.co.kr/io-fx/io-fx.js"&gt;&lt;/script&gt;
+&lt;io-fx name="fx-name" filter="filter-name" duration="0.5s" delay="0.5s" thresholds="[0.5, 1.0]" easing="ease-in"&gt;
+  &lt;p&gt;content...&lt;/p&gt;
+&lt;/io-fx&gt;</code></pre>
+
+      <p>CSS 예:</p>
+      <pre><code>/* CSS 변수로 효과 지정 */
+io-fx[name="fx-name"] {
+  --io-fx-scale-from: 1;
+  --io-fx-scale-to: 2;
+  --io-fx-opacity-from: 1;
+  --io-fx-opacity-to: 0;
+}
+
+io-fx[filter="filter-name"] {
+  --io-fx-filter-from: blur(0);
+  --io-fx-filter-to: blur(10px);
+}
+
+/* [active] 셀렉터 사용하여 직접 효과 지정 */
+io-fx[name="blink"] .blink {
+  opacity: 0;
+}
+
+io-fx[name="blink"][active] .blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}</code></pre>
+
       <div class="dummy"></div>
 
-      <script async defer src="./io-fx.js"></script>
+      <script async defer crossorigin="anonymous" src="./io-fx.js"></script>
 
       <io-fx name="fade-up">
         <div class="box">
