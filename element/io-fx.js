@@ -62,6 +62,16 @@ template.innerHTML = `
     }
 
     :host([filter]) .io-fx-target {
+      transition-property: opacity, transform, filter;
+      transition-duration: var(--io-fx-opacity-duration, var(--io-fx-duration, 0.5s)),
+        var(--io-fx-transform-duration, var(--io-fx-duration, 0.5s)),
+        var(--io-fx-filter-duration, var(--io-fx-duration, 0.5s));
+      transition-delay: var(--io-fx-opacity-delay, var(--io-fx-delay, 0s)),
+        var(--io-fx-transform-delay, var(--io-fx-delay, 0s)),
+        var(--io-fx-filter-delay, var(--io-fx-delay, 0s));
+      transition-timing-function: var(--io-fx-opacity-easing, var(--io-fx-easing, linear)),
+        var(--io-fx-transform-easing, var(--io-fx-easing, ease-in-out)),
+        var(--io-fx-filter-easing, var(--io-fx-easing, ease-in-out));
       filter: var(--io-fx-filter-from);
     }
 
@@ -109,6 +119,26 @@ template.innerHTML = `
 
     :host([name$="-down-right"]) {
       --io-fx-translate-y-from: -100px;
+    }
+
+    :host([name="zoom-in"]) {
+      --io-fx-scale-from: 1;
+      --io-fx-scale-to: 1.2;
+    }
+
+    :host([name="zoom-out"]) {
+      --io-fx-scale-from: 1.2;
+      --io-fx-scale-to: 1;
+    }
+
+    :host([filter="blur-in"]) {
+      --io-fx-filter-from: blur(10px);
+      --io-fx-filter-to: blur(0);
+    }
+
+    :host([filter="blur-out"]) {
+      --io-fx-filter-from: blur(0);
+      --io-fx-filter-to: blur(10px);
     }
   </style>
   <div class="io-fx-target"><slot></slot></div>

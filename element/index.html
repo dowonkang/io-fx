@@ -32,34 +32,98 @@
         border: 0.25em solid currentColor;
         font-size: 2rem;
       }
+
+      .star {
+        max-width: 100%;
+        height: auto;
+      }
+
+      io-fx[name="star"] .star {
+        opacity: 0;
+        transform: rotate(0deg) scale(1);
+        transition: opacity 1s linear, transform 1s ease-in-out;
+      }
+
+      io-fx[name="star"][active] .star {
+        animation: star 5s infinite;
+      }
+
+      @keyframes star {
+        0%,
+        100% {
+          transform: rotate(0deg) scale(1);
+          opacity: 0;
+        }
+        50% {
+          transform: rotate(180deg) scale(1.2);
+          opacity: 1;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="wrapper">
       <h1>&lt;io-fx&gt; element</h1>
+
       <div class="dummy"></div>
+
       <script async defer src="./io-fx.js"></script>
+
       <io-fx name="fade-up">
         <div class="box">
           <p>fade-up</p>
         </div>
       </io-fx>
+
       <io-fx name="fade-left" delay="0.5s">
         <div class="box">
           <p>fade-left</p>
         </div>
       </io-fx>
+
       <io-fx name="fade-right" duration="0.3s">
         <div class="box">
           <p>fade-right</p>
         </div>
       </io-fx>
+
       <div class="dummy"></div>
+
       <io-fx name="fade-left" thresholds="0.5">
         <div class="box">
           <p>fade-up threshold="0.5"</p>
         </div>
       </io-fx>
+
+      <div class="dummy"></div>
+
+      <io-fx name="star">
+        <svg viewBox="0 0 1716.0066 818.61017" class="star">
+          <path
+            fill="#ffe400"
+            d="m838.18745 614.058-88.187-88.187-89.559 89.559-55.529-55.529 89.559-89.558-88.188-88.187997 52.437-52.436005 88.187 88.187002 89.908-89.908003 55.528 55.529005-89.908 89.907998 88.188 88.187z"
+          ></path>
+          <path
+            fill="#ffd200"
+            d="M913.07295 509.5h-124.716v126.657h-78.529V509.5h-124.716v-74.154h124.716V308.197h78.529v127.149h124.716z"
+          ></path>
+        </svg>
+      </io-fx>
+
+      <io-fx name="zoom-out" filter="blur-in">
+        <svg viewBox="0 0 1716.0066 818.61017" class="star">
+          <path
+            fill="#ffe400"
+            d="m838.18745 614.058-88.187-88.187-89.559 89.559-55.529-55.529 89.559-89.558-88.188-88.187997 52.437-52.436005 88.187 88.187002 89.908-89.908003 55.528 55.529005-89.908 89.907998 88.188 88.187z"
+          ></path>
+          <path
+            fill="#ffd200"
+            d="M913.07295 509.5h-124.716v126.657h-78.529V509.5h-124.716v-74.154h124.716V308.197h78.529v127.149h124.716z"
+          ></path>
+        </svg>
+      </io-fx>
+
+      <div class="dummy"></div>
     </div>
   </body>
 </html>
