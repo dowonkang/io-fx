@@ -113,15 +113,49 @@
       @keyframes rotate-backwards {
         0% {
           transform: rotate(45deg);
-          filter: blur(0);
+          opacity: 0.8;
         }
         50% {
-          filter: blur(3px);
+          opacity: 0.3;
         }
         100% {
           transform: rotate(-45deg);
-          filter: blur(0);
+          opacity: 0.8;
         }
+      }
+
+      .scroller {
+        width: 80%;
+        margin: 1em auto;
+        padding: 1em;
+        border: 0.25em solid currentColor;
+        overflow: auto;
+      }
+
+      .rail {
+        display: flex;
+        gap: 1em;
+
+        &::after {
+          content: "";
+          display: block;
+          flex-shrink: 0;
+          width: 1em;
+          margin-left: -1em;
+        }
+      }
+
+      .rail__item {
+        flex: 0 0 auto;
+        margin: 0;
+      }
+
+      .rail .box {
+        box-sizing: border-box;
+        margin: 0;
+        aspect-ratio: 1;
+        background: rgba(128, 128, 255, 0.5);
+        opacity: var(--io-ratio, 1);
       }
     </style>
     <link
@@ -289,7 +323,7 @@ io-fx[name="blink"][active] .blink {
   }
 }</code></pre>
 
-      <io-fx name="rhcp" thresholds="0.0">
+      <io-fx name="rhcp" filter="blur-in" thresholds="0.0">
         <svg viewBox="0 0 100 100">
           <g class="plus">
             <rect
@@ -325,6 +359,83 @@ io-fx[name="blink"][active] .blink {
           </g>
         </svg>
       </io-fx>
+
+      <div class="scroller" id="scroller">
+        <div class="rail">
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+          <io-fx
+            class="rail__item"
+            name="fade-in"
+            root="#scroller"
+            thresholds="[0.2,0.4,0.6,0.8,1.0]"
+          >
+            <div class="box"></div>
+          </io-fx>
+        </div>
+      </div>
 
       <div class="dummy"></div>
     </div>

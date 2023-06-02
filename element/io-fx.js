@@ -150,8 +150,12 @@
       /** @type {IntersectionObserver | null} */
       this.observer = null;
 
-      const shadowRoot = this.attachShadow({ mode: "open" });
+      const shadowRoot = this.attachShadow({
+        mode: "open",
+      });
       shadowRoot.appendChild(template.content.cloneNode(true));
+
+      this.fxTarget = shadowRoot.querySelector(".io-fx-target");
     }
 
     get name() {
@@ -219,7 +223,11 @@
     get options() {
       if (this.observer) {
         const { root, rootMargin, thresholds: threshold } = this.observer;
-        return { root, rootMargin, threshold };
+        return {
+          root,
+          rootMargin,
+          threshold,
+        };
       }
 
       const { root, rootMargin, thresholds: threshold } = this;
@@ -246,7 +254,7 @@
         const attrValue = this.getAttribute(attr);
 
         if (attrValue) {
-          this.style.setProperty(`--io-fx-${attr}`, attrValue);
+          this.fxTarget.style.setProperty(`--io-fx-${attr}`, attrValue);
         }
       });
 
@@ -258,15 +266,38 @@
           const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
               const target = entry.target;
+              const fxTarget = target.fxTarget;
 
               if (entry.isIntersecting) {
                 target.active = true;
+                target.dispatchEvent(
+                  new CustomEvent("iofxin", {
+                    detail: {
+                      entry,
+                      observer,
+                    },
+                  })
+                );
 
                 if (target.once) {
                   observer.unobserve(target);
+                } else {
+                  fxTarget.style.setProperty(
+                    "--io-ratio",
+                    entry.intersectionRatio.toString()
+                  );
                 }
               } else {
                 target.active = false;
+                target.dispatchEvent(
+                  new CustomEvent("iofxout", {
+                    detail: {
+                      entry,
+                      observer,
+                    },
+                  })
+                );
+                fxTarget.style.setProperty("--io-ratio", "");
               }
             });
           }, options);
